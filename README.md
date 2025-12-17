@@ -4,6 +4,9 @@ An example of PHP application using
 [Open-Meteo](https://open-meteo.com) weather data
 and [Codeception](https://codeception.com) tests.
 
+![icon](icon-128.png)
+
+
 ## Requirements
 
 - PHP 8
