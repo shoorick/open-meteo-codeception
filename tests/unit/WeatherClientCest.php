@@ -2,53 +2,50 @@
 
 declare(strict_types=1);
 
-namespace Tests\unit;
-
 use App\Weather\WeatherClient;
-use Codeception\Test\Unit;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-final class WeatherClientTest extends Unit
+final class WeatherClientCest
 {
-    public function testValidateInputReturnsFalseForEmptyStrings(): void
+    public function validateInputReturnsFalseForEmptyStrings(UnitTester $I): void
     {
         $client = new WeatherClient(new Client());
 
-        $this->assertFalse($client->validateInput('', '20'));
-        $this->assertFalse($client->validateInput('44', ''));
+        $I->assertFalse($client->validateInput('', '20'));
+        $I->assertFalse($client->validateInput('44', ''));
     }
 
-    public function testValidateInputReturnsFalseForNonNumeric(): void
+    public function validateInputReturnsFalseForNonNumeric(UnitTester $I): void
     {
         $client = new WeatherClient(new Client());
 
-        $this->assertFalse($client->validateInput('abc', '20'));
-        $this->assertFalse($client->validateInput('44', 'xyz'));
+        $I->assertFalse($client->validateInput('abc', '20'));
+        $I->assertFalse($client->validateInput('44', 'xyz'));
     }
 
-    public function testValidateInputReturnsFalseForOutOfRange(): void
+    public function validateInputReturnsFalseForOutOfRange(UnitTester $I): void
     {
         $client = new WeatherClient(new Client());
 
-        $this->assertFalse($client->validateInput('181', '0'));
-        $this->assertFalse($client->validateInput('-181', '0'));
-        $this->assertFalse($client->validateInput('0', '181'));
-        $this->assertFalse($client->validateInput('0', '-181'));
+        $I->assertFalse($client->validateInput('181', '0'));
+        $I->assertFalse($client->validateInput('-181', '0'));
+        $I->assertFalse($client->validateInput('0', '181'));
+        $I->assertFalse($client->validateInput('0', '-181'));
     }
 
-    public function testValidateInputReturnsTrueForValidRange(): void
+    public function validateInputReturnsTrueForValidRange(UnitTester $I): void
     {
         $client = new WeatherClient(new Client());
 
-        $this->assertTrue($client->validateInput('44', '20'));
-        $this->assertTrue($client->validateInput('-180', '180'));
-        $this->assertTrue($client->validateInput('180', '-180'));
+        $I->assertTrue($client->validateInput('44', '20'));
+        $I->assertTrue($client->validateInput('-180', '180'));
+        $I->assertTrue($client->validateInput('180', '-180'));
     }
 
-    public function testSendRequestReturnsDecodedJson(): void
+    public function sendRequestReturnsDecodedJson(UnitTester $I): void
     {
         $mock = new MockHandler([
             new Response(200, ['Content-Type' => 'application/json'], json_encode(['ok' => true, 'value' => 123])),
@@ -61,8 +58,8 @@ final class WeatherClientTest extends Unit
 
         $data = $client->sendRequest(44.0, 20.0);
 
-        $this->assertIsArray($data);
-        $this->assertSame(true, $data['ok']);
-        $this->assertSame(123, $data['value']);
+        $I->assertIsArray($data);
+        $I->assertSame(true, $data['ok']);
+        $I->assertSame(123, $data['value']);
     }
 }
