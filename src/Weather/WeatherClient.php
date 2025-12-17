@@ -16,7 +16,7 @@ final class WeatherClient
         $this->httpClient = $httpClient;
     }
 
-    public function validateInput(string $latitude, string $longitude): bool
+    public function validateInput(string|int|float $latitude, string|int|float $longitude): bool
     {
         if ($latitude === '' || $longitude === '') {
             return false;
