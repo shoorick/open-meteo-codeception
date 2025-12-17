@@ -18,10 +18,12 @@ composer install
 ## Run web app
 
 ```bash
+make server
+# or
 php -S 127.0.0.1:8080 -t .
 ```
 
-Open http://127.0.0.1:8080/index.php
+Then open http://127.0.0.1:8080/index.php
 
 ## Run tests
 
