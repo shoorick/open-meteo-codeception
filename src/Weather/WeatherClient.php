@@ -29,7 +29,7 @@ final class WeatherClient
         $lat = (float)$latitude;
         $lon = (float)$longitude;
 
-        return $lat >= -180 && $lat <= 180 && $lon >= -180 && $lon <= 180;
+        return $lat >= -90 && $lat <= 90 && $lon >= -180 && $lon <= 180;
     }
 
     /**
@@ -53,7 +53,7 @@ final class WeatherClient
         $body = (string)$response->getBody();
         $decoded = json_decode($body, true);
 
-        if (!is_array($decoded)) {
+        if (!\is_array($decoded)) {
             throw new \RuntimeException('Invalid JSON response from API');
         }
 
