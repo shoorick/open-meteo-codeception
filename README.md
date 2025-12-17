@@ -33,5 +33,7 @@ Then open http://127.0.0.1:8080/index.php
 
 ## See also
 
+- [Codeception test adapter](https://github.com/shoorick/codeception-test-adapter) for VSCode
+  and compatible IDEs (Codium, Cursor, Windsurf)
 - [open-meteo.com](https://open-meteo.com)
 - [codeception.com](https://codeception.com/)
